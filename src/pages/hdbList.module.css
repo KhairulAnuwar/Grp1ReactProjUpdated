@@ -1,0 +1,8 @@
+.hdbresults{
+    width: 100%;
+    border: 1px solid black;
+}
+
+.hdbresults table{
+    margin: auto;
+}

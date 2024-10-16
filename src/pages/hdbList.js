@@ -1,7 +1,103 @@
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../store/UserContext";
+import Filter from "../components/Filter";
+import govapi from "../api/govapi";
+import { PropagateLoader } from "react-spinners";
 import Layout from "../components/Layout/Layout";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
+import styles from "./hdbList.module.css";
 
 function HdbList() {
+  const [isLoading, setIsLoading] = useState(false);
+  const UserCtx = useContext(UserContext);
+  const {
+    credentials,
+    setCredentials,
+    handleCredentialsChange,
+    handleLogin,
+    isLogged,
+    setIsLogged,
+    criterias,
+    setCriterias,
+  } = UserCtx;
+
+  const [hdbList, setHdbList] = useState([]);
+  const getHdbList = async () => {
+    try {
+      setIsLoading(true);
+      const response = await govapi.get();
+      setHdbList(response.data.result.records);
+      console.log(response);
+    } catch (error) {
+      console.error("🚨 error: ", error.message);
+      alert(error.message);
+    } finally {
+      console.log("🎉 completed");
+      console.log("Full list", hdbList);
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getHdbList();
+  }, []);
+
+  const filterByTown = (item) => {
+    if (criterias.town == "") {
+      return true;
+    }
+    if (item.town == criterias.town) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const filterByYear = (item) => {
+    if (criterias.year == "") {
+      return true;
+    }
+    if (item.month.substring(0, 4) == criterias.year) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const filterByMonth = (item) => {
+    if (criterias.month == "") {
+      return true;
+    }
+    if (item.month.substring(5, 7) == criterias.month) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const filterByFlatModel = (item) => {
+    if (criterias.flat_model == "") {
+      return true;
+    }
+    if (item.flat_model == criterias.flat_model) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const filterAll = (item) => {
+    if (
+      filterByMonth(item) &&
+      filterByYear(item) &&
+      filterByTown(item) &&
+      filterByFlatModel(item)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <>
       <Layout>
@@ -26,37 +122,55 @@ function HdbList() {
             },
           }}
         >
-          <Typography variant="h4">HDB List</Typography>
-          <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat
-            quod, suscipit, aperiam totam autem culpa cum eveniet dolorum quasi
-            est perspiciatis laborum. Nam recusandae nihil quia odio
-            voluptatibus facere omnis facilis rerum? Ab eum beatae nobis
-            reiciendis, qui temporibus aliquid, nesciunt velit sed quam
-            recusandae necessitatibus, tempora maxime. Repellendus incidunt,
-            maxime labore dolorum eos aperiam unde? At veritatis nesciunt eos
-            quas cupiditate blanditiis est quam maiores, amet, soluta
-            exercitationem voluptatum, veniam assumenda? Ratione perferendis
-            officiis deserunt nostrum aspernatur sed asperiores! Earum sunt
-            placeat ducimus sint, deleniti amet esse saepe voluptatem commodi
-            laudantium quibusdam repellat nobis libero at consectetur adipisci
-            ipsa.
-          </p>
-          <br />
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
-            deserunt libero reprehenderit cum sint fugit cumque temporibus modi
-            facere eveniet amet obcaecati ducimus harum velit maxime vel qui
-            voluptatibus quam odio corrupti saepe, voluptas dolorum quidem
-            tempore? Esse sapiente molestias minus enim quisquam dolorum eum
-            culpa ullam impedit velit quo, corporis ducimus numquam dignissimos
-            inventore maiores. Nam deleniti itaque nostrum neque dolorum
-            dolores, aliquam, voluptatum sapiente doloribus laborum perspiciatis
-            ipsam, quo ut nisi distinctio sunt nihil est blanditiis perferendis
-            eveniet nesciunt! Nostrum, voluptatum eveniet repellat vel officia
-            deleniti tempore voluptatibus perferendis esse eaque temporibus
-            porro? Aspernatur beatae deleniti illo autem!
-          </p>
+          <Filter />
+          <h2>{isLogged ? "True" : "False"}</h2>
+          {isLoading ? (
+            <div style={{ marginTop: 20, marginBottom: 20 }}>
+              <PropagateLoader color="#36d7b7" loading={isLoading} />
+            </div>
+          ) : (
+            ""
+          )}
+          {console.log("CRITERIAS", criterias)}
+          <div className={styles.hdbresults}>
+            <table className={styles.hdbresults.table}>
+              <tr>
+                <td>month</td>
+                <td>town</td>
+                <td>flat_type</td>
+                <td>block</td>
+                <td>street_name</td>
+                <td>storey_range</td>
+                <td>floor_area_sqm</td>
+                <td>flat_model</td>
+                <td>lease_commence_date</td>
+                <td>remaining_lease</td>
+                <td>resale_price</td>
+                <td>_id</td>
+              </tr>
+              {hdbList.filter(filterAll).map((item, id) => {
+                // {hdbList.map((item, id) => {
+                return (
+                  <>
+                    <tr key={id}>
+                      <td>{item.month}</td>
+                      <td>{item.town}</td>
+                      <td>{item.flat_type}</td>
+                      <td>{item.block}</td>
+                      <td>{item.street_name}</td>
+                      <td>{item.storey_range}</td>
+                      <td>{item.floor_area_sqm}</td>
+                      <td>{item.flat_model}</td>
+                      <td>{item.lease_commence_date}</td>
+                      <td>{item.remaining_lease}</td>
+                      <td>{item.resale_price}</td>
+                      <td>{item._id}</td>
+                    </tr>
+                  </>
+                );
+              })}
+            </table>
+          </div>
         </Box>
       </Layout>
     </>
