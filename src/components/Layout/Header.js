@@ -95,11 +95,11 @@ function Header() {
           </li>
         ) : (
           <>
-            <li>
+            {/* <li>
               <NavLink to="/signin" className={({ isActive }) => (isActive ? "active" : "")}>
                 SignIn
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
                 Login
@@ -176,11 +176,11 @@ function Header() {
                   </li>
                 ) : (
                   <>
-                    <li>
+                    {/* <li>
                       <NavLink to="/signin" className={({ isActive }) => (isActive ? "active" : "")}>
                         SignIn
                       </NavLink>
-                    </li>
+                    </li> */}
                     <li>
                       <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
                         Login
