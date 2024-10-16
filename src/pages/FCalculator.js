@@ -1,74 +1,139 @@
-
 import Layout from "../components/Layout/Layout";
-import {
-    Box,Typography
-    
-  } from "@mui/material";
+import { useState } from "react";
+import Joi from 'joi-browser';
+import { Box } from "@mui/material";
 
-function FCalculator()
-{
+
+function FCalculator() {
+
+  const blankForm =  {
+    cpf: 0,
+    cash: 0,
+    income: 0,
+    loan: 0,
+  }
+
+  const [form, setForm] = useState(blankForm);
+
+  const handlerUpdateForm = (event, key) => {
+    const value = parseInt(event.target.value);
+    const updatedForm = { ...form, [key]: value };
+    setForm(updatedForm);
+  };
+
+  const [error, setError] = useState({});
+
+  const schema = {
+    cpf: Joi.number().min(0).required(),
+    cash: Joi.number().min(0).required(),
+    income: Joi.number().min(0).required(),
+    loan: Joi.number().min(0).required(),
+  }
+
+  const handlerOnChange = (event) => {
+    const {name, value} = event.target;
+    console.log(value)
+    const errorMessage = validate(event);
+    let errorData = {...error};
+
+    if (errorMessage) {
+      errorData[name] = errorMessage;
+      console.log(errorMessage)
+
+    } else {
+      delete errorData[name];
+      handlerUpdateForm(event, name)
+    }
+  }
+  const validate = (event) => {
+    const {name, value} = event.target;
+    const objToCompare = {[name]: value};
+    const subSchema ={[name]: schema[name]};
+
+    const result = Joi.validate(objToCompare, subSchema);
+    const {error} = result;
+    return error ? error.details[0].message : null;
+  }
+
+  const handlerOnSubmit = (event) => {
+    event.preventDefault();
+    const result = Joi.validate(form, schema, {abortEarly: false});
+    const {error} = result;
+    if (!error) {
+      console.log(form);
+      return form;
+    } else {
+      const errorData = {};
+      for (let item of error.details) {
+        const name = item.path[0];
+        const message = item.message;
+        errorData[name] = message;
+      }
+      setError(errorData);
+      console.log(errorData);
+      return errorData
+    }
+  }
+
+  const loanAmt = ((form.income * 300) - (form.income * 0.2 * 300))
+  const totalBudget = ( form.cpf + 
+                        form.cash + 
+                        loanAmt)
+
   return (
-    <>
+    <>      
     <Layout>
     <Box
-        sx={{
-          my: 15,
-          textAlign: "center",
-          p: 2,
-          "& h4": {
-            fontWeight: "bold",
-            my: 2,
-            fontSize: "2rem",
+      sx={{
+        my: 15,
+        textAlign: "left",
+        p: 2,
+        "& h4": {
+          fontWeight: "bold",
+          my: 2,
+          fontSize: "2rem",
+        },
+        "& p": {
+          textAlign: "justify",
+        },
+        "@media (max-width:600px)": {
+          mt: 0,
+          "& h4 ": {
+            fontSize: "1.5rem",
           },
-          "& p": {
-            textAlign: "justify",
-          },
-          "@media (max-width:600px)": {
-            mt: 0,
-            "& h4 ": {
-              fontSize: "1.5rem",
-            },
-          },
-        }}
-      >
-        <Typography variant="h4">Enter calculator function 1 here</Typography>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat quod,
-          suscipit, aperiam totam autem culpa cum eveniet dolorum quasi est
-          perspiciatis laborum. Nam recusandae nihil quia odio voluptatibus
-          facere omnis facilis rerum? Ab eum beatae nobis reiciendis, qui
-          temporibus aliquid, nesciunt velit sed quam recusandae necessitatibus,
-          tempora maxime. Repellendus incidunt, maxime labore dolorum eos
-          aperiam unde? At veritatis nesciunt eos quas cupiditate blanditiis est
-          quam maiores, amet, soluta exercitationem voluptatum, veniam
-          assumenda? Ratione perferendis officiis deserunt nostrum aspernatur
-          sed asperiores! Earum sunt placeat ducimus sint, deleniti amet esse
-          saepe voluptatem commodi laudantium quibusdam repellat nobis libero at
-          consectetur adipisci ipsa.
-        </p>
+        },
+      }}
+    >
+      <div>
+      <h2>Budget Calculator</h2>
+      <br />
+      <form onSubmit={handlerOnSubmit}>
+        <label>CPF:</label>
         <br />
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi,
-          deserunt libero reprehenderit cum sint fugit cumque temporibus modi
-          facere eveniet amet obcaecati ducimus harum velit maxime vel qui
-          voluptatibus quam odio corrupti saepe, voluptas dolorum quidem
-          tempore? Esse sapiente molestias minus enim quisquam dolorum eum culpa
-          ullam impedit velit quo, corporis ducimus numquam dignissimos
-          inventore maiores. Nam deleniti itaque nostrum neque dolorum dolores,
-          aliquam, voluptatum sapiente doloribus laborum perspiciatis ipsam, quo
-          ut nisi distinctio sunt nihil est blanditiis perferendis eveniet
-          nesciunt! Nostrum, voluptatum eveniet repellat vel officia deleniti
-          tempore voluptatibus perferendis esse eaque temporibus porro?
-          Aspernatur beatae deleniti illo autem!
-        </p>
-      </Box>
+        <input type='number' name='cpf' placeholder='Enter CPF Amount' onChange={handlerOnChange} />
+        <br />
+        <br />
+        <label>Cash On Hand:</label>
+        <br />
+        <input type='number' name='cash' placeholder='Enter total cash' onChange={handlerOnChange} />
+        <br />
+        <br />
+        <label>Monthly Income (Used to calculate 20% CPF):</label>
+        <br />
+        <input type='number' name='income' placeholder='Enter monthly income' onChange={handlerOnChange} />
+        <br />
+        <br />
+        <label>Maximum Loan Amount (Calculated as 80% after taking 20% CPF into account): {loanAmt}</label>
+        <br />
+        <br />
+        <label>Total Budget: {totalBudget}</label>
+      </form>
+    </div>
+    </Box>
     </Layout>
-
-
-
-        </>
-  );
-};
+      </>
+    
+  )
+}
 
 export default FCalculator;
-
