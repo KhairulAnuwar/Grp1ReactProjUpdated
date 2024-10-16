@@ -7,13 +7,14 @@ import Function1 from "./pages/Function1";
 import FCalculator from "./pages/FCalculator";
 import Pagenotfound from "./pages/Pagenotfound";
 import HdbList from "./pages/hdbList.js";
-import SignIn from "./pages/pagesInOut/sign-in/SignIn";  
+import SignIn from "./pages/pagesInOut/sign-in/SignIn";
 import Login from "./pages/Login.js";
 import Testing from "./pages/Testing.js";
-
+import { UserContextProvider } from "./store/UserContext.js";
 
 function App() {
   return (
+    <UserContextProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -22,14 +23,14 @@ function App() {
           <Route path="fcalculator" element={<FCalculator />} />
           <Route path="function1" element={<Function1 />} />
           <Route path="hdblist" element={<HdbList />} />
-          <Route path="signin" element={<SignIn />} /> 
+          <Route path="signin" element={<SignIn />} />
           <Route path="login" element={<Login />} />
           <Route path="testing" element={<Testing />} />
 
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
       </BrowserRouter>
-    
+    </UserContextProvider>
   );
 }
 
