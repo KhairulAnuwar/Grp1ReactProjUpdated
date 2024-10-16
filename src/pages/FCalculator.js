@@ -74,6 +74,7 @@ function FCalculator() {
       return errorData
     }
   }
+
   const loanAmt = ((form.income * 300) - (form.income * 0.2 * 300))
   const totalBudget = ( form.cpf + 
                         form.cash + 
