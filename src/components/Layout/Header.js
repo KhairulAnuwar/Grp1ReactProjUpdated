@@ -78,6 +78,11 @@ function Header() {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/Salesperson" className={({ isActive }) => (isActive ? "active" : "")}>
+            Salesperson
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/contact" className={({ isActive }) => (isActive ? "active" : "")}>
             Contact
           </NavLink>
@@ -151,6 +156,11 @@ function Header() {
                 <li>
                   <NavLink to="/favorite" className={({ isActive }) => (isActive ? "active" : "")}>
                     Favorite
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/salesperson" className={({ isActive }) => (isActive ? "active" : "")}>
+                    Sales Person
                   </NavLink>
                 </li>
                 <li>
