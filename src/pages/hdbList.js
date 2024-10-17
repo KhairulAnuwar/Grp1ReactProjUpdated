@@ -147,7 +147,7 @@ function HdbList() {
           <h2>List of HDB from January 2017 to February 2017</h2>
           <p>Your current budget: {criterias.budget} SGD</p>
           <Filter hdbList={hdbList} />
-          <h2>{isLogged ? "True" : "False"}</h2>
+          {/* <h2>{isLogged ? "True" : "False"}</h2> */}
           {isLoading ? (
             <div style={{ marginTop: 20, marginBottom: 20 }}>
               <PropagateLoader color="#36d7b7" loading={isLoading} />
