@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AppBar,
   Box,
@@ -8,18 +8,40 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-
 import Logo from "../../images/logoFTBtrans.svg";
 import MenuIcon from "@mui/icons-material/Menu";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth"; // Firebase Auth
 import "../../styles/HeaderStyles.css";
 
 function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [user, setUser] = useState(null); // Track user login state
+  const auth = getAuth();
+  const navigate = useNavigate();
+
+  // Firebase auth listener to detect sign-in state
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser); // Set the user state when authentication state changes
+    });
+    return () => unsubscribe();
+  }, [auth]);
 
   // handle menu click
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
+  };
+
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      setUser(null); // Clear the user state after sign out
+      navigate("/signin"); // Redirect to SignIn page after logout
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   // menu drawer
@@ -65,16 +87,26 @@ function Header() {
             Contact
           </NavLink>
         </li>
-        <li>
-          <NavLink to="/signin" className={({ isActive }) => (isActive ? "active" : "")}>
-            SignIn
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
-            Login
-          </NavLink>
-        </li>
+        {user ? (
+          <li>
+            <NavLink to="/" onClick={handleLogout}>
+              Log Out
+            </NavLink>
+          </li>
+        ) : (
+          <>
+            {/* <li>
+              <NavLink to="/signin" className={({ isActive }) => (isActive ? "active" : "")}>
+                SignIn
+              </NavLink>
+            </li> */}
+            <li>
+              <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
+                Login
+              </NavLink>
+            </li>
+          </>
+        )}
       </ul>
     </Box>
   );
@@ -136,16 +168,26 @@ function Header() {
                     Contact
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/signin" className={({ isActive }) => (isActive ? "active" : "")}>
-                    SignIn
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
-                    Login
-                  </NavLink>
-                </li>
+                {user ? (
+                  <li>
+                    <NavLink to="/" onClick={handleLogout}>
+                      Log Out
+                    </NavLink>
+                  </li>
+                ) : (
+                  <>
+                    {/* <li>
+                      <NavLink to="/signin" className={({ isActive }) => (isActive ? "active" : "")}>
+                        SignIn
+                      </NavLink>
+                    </li> */}
+                    <li>
+                      <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
+                        Login
+                      </NavLink>
+                    </li>
+                  </>
+                )}
               </ul>
             </Box>
           </Toolbar>
