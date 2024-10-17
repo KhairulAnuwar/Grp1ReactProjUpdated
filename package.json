@@ -15,6 +15,7 @@
     "axios": "^1.7.7",
     "joi-browser": "^13.4.0",
     "firebase": "^10.14.1",
+    "joi-browser": "^13.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.4",

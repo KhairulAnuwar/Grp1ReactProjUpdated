@@ -5,7 +5,6 @@ import govapi from "../api/govapi";
 import { PropagateLoader } from "react-spinners";
 import Layout from "../components/Layout/Layout";
 import { Box } from "@mui/material";
-import styles from "./hdbList.module.css";
 
 function HdbList() {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,13 +28,13 @@ function HdbList() {
       setIsLoading(true);
       const response = await govapi.get();
       setHdbList(response.data.result.records);
+      console.log("Full list", hdbList);
       console.log(response);
     } catch (error) {
       console.error("🚨 error: ", error.message);
       alert(error.message);
     } finally {
       console.log("🎉 completed");
-      console.log("Full list", hdbList);
       setIsLoading(false);
     }
   };
@@ -86,12 +85,35 @@ function HdbList() {
       return false;
     }
   };
+  const filterByFlatType = (item) => {
+    if (criterias.flat_type == "") {
+      return true;
+    }
+    if (item.flat_type == criterias.flat_type) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const filterByBudget = (item) => {
+    if (criterias.budget == "") {
+      return true;
+    }
+    if (Number(item.resale_price) <= Number(criterias.budget)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const filterAll = (item) => {
     if (
       filterByMonth(item) &&
       filterByYear(item) &&
       filterByTown(item) &&
+      filterByFlatType(item) &&
+      filterByBudget(item) &&
       filterByFlatModel(item)
     ) {
       return true;
@@ -125,7 +147,7 @@ function HdbList() {
         <Box
           sx={{
             my: 15,
-            textAlign: "center",
+            textAlign: "left",
             p: 2,
             "& h4": {
               fontWeight: "bold",
@@ -143,8 +165,10 @@ function HdbList() {
             },
           }}
         >
-          <Filter />
-          <h2>{isLogged ? "True" : "False"}</h2>
+          <h2>List of HDB from January 2017 to February 2017</h2>
+          <p>Your current budget: {criterias.budget} SGD</p>
+          <Filter hdbList={hdbList} />
+          {/* <h2>{isLogged ? "True" : "False"}</h2> */}
           {isLoading ? (
             <div style={{ marginTop: 20, marginBottom: 20 }}>
               <PropagateLoader color="#36d7b7" loading={isLoading} />
