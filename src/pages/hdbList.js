@@ -22,6 +22,8 @@ function HdbList() {
   } = UserCtx;
 
   const [hdbList, setHdbList] = useState([]);
+
+
   const getHdbList = async () => {
     try {
       setIsLoading(true);
@@ -98,6 +100,25 @@ function HdbList() {
     }
   };
 
+  const [favorites, setFavorites] = useState([]);
+
+  const addToFavorites = (product) => {
+    const isAlreadyFavorite = UserCtx.favorites.some((fav) => fav._id === product._id);
+
+    if (isAlreadyFavorite) {
+      UserCtx.setFavorites(UserCtx.favorites.filter((fav) => fav._id !== product._id));
+    } else {
+      UserCtx.setFavorites([...UserCtx.favorites, product]);
+    }
+
+    // Update product's "isFavorite" status in the product list
+    setHdbList((prevProducts) =>
+      prevProducts.map((p) =>
+        p._id === product._id ? { ...p, isFavorite: !p.isFavorite } : p
+      )
+    );
+  };
+
   return (
     <>
       <Layout>
@@ -147,12 +168,13 @@ function HdbList() {
                 <td>remaining_lease</td>
                 <td>resale_price</td>
                 <td>_id</td>
+                <td>Favorites</td>
               </tr>
-              {hdbList.filter(filterAll).map((item, id) => {
+              {hdbList.filter(filterAll).map((item) => {
                 // {hdbList.map((item, id) => {
                 return (
                   <>
-                    <tr key={id}>
+                    <tr key={item._id}>
                       <td>{item.month}</td>
                       <td>{item.town}</td>
                       <td>{item.flat_type}</td>
@@ -165,6 +187,10 @@ function HdbList() {
                       <td>{item.remaining_lease}</td>
                       <td>{item.resale_price}</td>
                       <td>{item._id}</td>
+                      <td>
+                <button onClick={()=>addToFavorites(item)}>{item.isFavorite? "★":"☆"}</button>
+              </td>
+
                     </tr>
                   </>
                 );
@@ -178,3 +204,4 @@ function HdbList() {
 }
 
 export default HdbList;
+

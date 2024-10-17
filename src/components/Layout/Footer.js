@@ -40,8 +40,8 @@ const Footer = () => {
           <Link href="/FCalculator" underline="none">
             Calculator
           </Link>
-          <Link href="/Function1" underline="none">
-            Function 1
+          <Link href="/Favorite" underline="none">
+            Favorite
           </Link>
           <Link href="/about" underline="none">
             About

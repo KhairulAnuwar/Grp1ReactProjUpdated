@@ -73,8 +73,8 @@ function Header() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/testing" className={({ isActive }) => (isActive ? "active" : "")}>
-            Testing
+          <NavLink to="/Favorite" className={({ isActive }) => (isActive ? "active" : "")}>
+            Favorite
           </NavLink>
         </li>
         <li>
@@ -154,8 +154,8 @@ function Header() {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/testing" className={({ isActive }) => (isActive ? "active" : "")}>
-                    Testing
+                  <NavLink to="/favorite" className={({ isActive }) => (isActive ? "active" : "")}>
+                    Favorite
                   </NavLink>
                 </li>
                 <li>
