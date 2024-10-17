@@ -21,6 +21,8 @@ function HdbList() {
   } = UserCtx;
 
   const [hdbList, setHdbList] = useState([]);
+
+
   const getHdbList = async () => {
     try {
       setIsLoading(true);
@@ -120,6 +122,25 @@ function HdbList() {
     }
   };
 
+  const [favorites, setFavorites] = useState([]);
+
+  const addToFavorites = (product) => {
+    const isAlreadyFavorite = UserCtx.favorites.some((fav) => fav._id === product._id);
+
+    if (isAlreadyFavorite) {
+      UserCtx.setFavorites(UserCtx.favorites.filter((fav) => fav._id !== product._id));
+    } else {
+      UserCtx.setFavorites([...UserCtx.favorites, product]);
+    }
+
+    // Update product's "isFavorite" status in the product list
+    setHdbList((prevProducts) =>
+      prevProducts.map((p) =>
+        p._id === product._id ? { ...p, isFavorite: !p.isFavorite } : p
+      )
+    );
+  };
+
   return (
     <>
       <Layout>
@@ -155,44 +176,51 @@ function HdbList() {
           ) : (
             ""
           )}
-          {console.log(hdbList)}
+          {console.log("CRITERIAS", criterias)}
+          <div className={styles.hdbresults}>
+            <table className={styles.hdbresults.table}>
+              <tr>
+                <td>month</td>
+                <td>town</td>
+                <td>flat_type</td>
+                <td>block</td>
+                <td>street_name</td>
+                <td>storey_range</td>
+                <td>floor_area_sqm</td>
+                <td>flat_model</td>
+                <td>lease_commence_date</td>
+                <td>remaining_lease</td>
+                <td>resale_price</td>
+                <td>_id</td>
+                <td>Favorites</td>
+              </tr>
+              {hdbList.filter(filterAll).map((item) => {
+                // {hdbList.map((item, id) => {
+                return (
+                  <>
+                    <tr key={item._id}>
+                      <td>{item.month}</td>
+                      <td>{item.town}</td>
+                      <td>{item.flat_type}</td>
+                      <td>{item.block}</td>
+                      <td>{item.street_name}</td>
+                      <td>{item.storey_range}</td>
+                      <td>{item.floor_area_sqm}</td>
+                      <td>{item.flat_model}</td>
+                      <td>{item.lease_commence_date}</td>
+                      <td>{item.remaining_lease}</td>
+                      <td>{item.resale_price}</td>
+                      <td>{item._id}</td>
+                      <td>
+                <button onClick={()=>addToFavorites(item)}>{item.isFavorite? "★":"☆"}</button>
+              </td>
 
-          <table style={{ border: "1px solid black" }}>
-            <tr>
-              <td>month</td>
-              <td>town</td>
-              <td>flat_type</td>
-              <td>block</td>
-              <td>street_name</td>
-              <td>storey_range</td>
-              <td>floor_area_sqm</td>
-              <td>flat_model</td>
-              <td>lease_commence_date</td>
-              <td>remaining_lease</td>
-              <td>resale_price</td>
-              <td>_id</td>
-            </tr>
-            {hdbList.filter(filterAll).map((item, id) => {
-              return (
-                <>
-                  <tr key={id}>
-                    <td>{item.month}</td>
-                    <td>{item.town}</td>
-                    <td>{item.flat_type}</td>
-                    <td>{item.block}</td>
-                    <td>{item.street_name}</td>
-                    <td>{item.storey_range}</td>
-                    <td>{item.floor_area_sqm}</td>
-                    <td>{item.flat_model}</td>
-                    <td>{item.lease_commence_date}</td>
-                    <td>{item.remaining_lease}</td>
-                    <td>{item.resale_price}</td>
-                    <td>{item._id}</td>
-                  </tr>
-                </>
-              );
-            })}
-          </table>
+                    </tr>
+                  </>
+                );
+              })}
+            </table>
+          </div>
         </Box>
       </Layout>
     </>
@@ -200,3 +228,4 @@ function HdbList() {
 }
 
 export default HdbList;
+

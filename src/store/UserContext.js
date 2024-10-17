@@ -11,6 +11,7 @@ export function UserContextProvider({ children }) {
     password: "",
   });
   const [isLogged, setIsLogged] = useState(false);
+  const [favorites, setFavorites] = useState([]);
 
   const [criterias, setCriterias] = useState({
     month: "",
@@ -66,9 +67,12 @@ export function UserContextProvider({ children }) {
     setIsLogged,
     criterias,
     setCriterias,
+    favorites,
+    setFavorites
   };
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   );
 }
+
