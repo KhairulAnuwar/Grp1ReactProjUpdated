@@ -43,6 +43,7 @@ function FCalculator() {
     } else {
       delete errorData[name];
       handlerUpdateForm(event, name)
+      
     }
   }
   const validate = (event) => {
@@ -75,10 +76,15 @@ function FCalculator() {
     }
   }
 
-  const loanAmt = ((form.income * 300) - (form.income * 0.2 * 300))
-  const totalBudget = ( form.cpf + 
-                        form.cash + 
-                        loanAmt)
+  const loanAmt = ((form.cpf + form.cash)/0.25) - (form.cpf + form.cash)
+  const [ totalBudget, setTotalBudget ] = useState(0)
+
+  const calculateTotalBudget = () => {
+    setTotalBudget(loanAmt + form.cpf + form.cash)
+    console.log(totalBudget)
+  }
+
+
 
   return (
     <>      
@@ -118,12 +124,14 @@ function FCalculator() {
         <input type='number' name='cash' placeholder='Enter total cash' onChange={handlerOnChange} />
         <br />
         <br />
-        <label>Monthly Income (Used to calculate 20% CPF):</label>
+        <label>Monthly Income:</label>
         <br />
         <input type='number' name='income' placeholder='Enter monthly income' onChange={handlerOnChange} />
         <br />
         <br />
-        <label>Maximum Loan Amount (Calculated as 80% after taking 20% CPF into account): {loanAmt}</label>
+        <button name='calculate' onClick={calculateTotalBudget}>SUBMIT</button>
+        <br />
+        <label>Maximum Loan Amount (Calculated as 75% after taking 25% CPF & Cash into account): {loanAmt}</label>
         <br />
         <br />
         <label>Total Budget: {totalBudget}</label>
