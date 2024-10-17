@@ -5,6 +5,7 @@ import govapi from "../api/govapi";
 import { PropagateLoader } from "react-spinners";
 import Layout from "../components/Layout/Layout";
 import { Box } from "@mui/material";
+import styles from "./hdbList.module.css";
 
 function HdbList() {
   const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +22,6 @@ function HdbList() {
   } = UserCtx;
 
   const [hdbList, setHdbList] = useState([]);
-
 
   const getHdbList = async () => {
     try {
@@ -125,10 +125,14 @@ function HdbList() {
   const [favorites, setFavorites] = useState([]);
 
   const addToFavorites = (product) => {
-    const isAlreadyFavorite = UserCtx.favorites.some((fav) => fav._id === product._id);
+    const isAlreadyFavorite = UserCtx.favorites.some(
+      (fav) => fav._id === product._id
+    );
 
     if (isAlreadyFavorite) {
-      UserCtx.setFavorites(UserCtx.favorites.filter((fav) => fav._id !== product._id));
+      UserCtx.setFavorites(
+        UserCtx.favorites.filter((fav) => fav._id !== product._id)
+      );
     } else {
       UserCtx.setFavorites([...UserCtx.favorites, product]);
     }
@@ -212,9 +216,10 @@ function HdbList() {
                       <td>{item.resale_price}</td>
                       <td>{item._id}</td>
                       <td>
-                <button onClick={()=>addToFavorites(item)}>{item.isFavorite? "★":"☆"}</button>
-              </td>
-
+                        <button onClick={() => addToFavorites(item)}>
+                          {item.isFavorite ? "★" : "☆"}
+                        </button>
+                      </td>
                     </tr>
                   </>
                 );
@@ -228,4 +233,3 @@ function HdbList() {
 }
 
 export default HdbList;
-
