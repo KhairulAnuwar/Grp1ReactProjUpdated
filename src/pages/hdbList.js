@@ -5,7 +5,6 @@ import govapi from "../api/govapi";
 import { PropagateLoader } from "react-spinners";
 import Layout from "../components/Layout/Layout";
 import { Box } from "@mui/material";
-import styles from "./hdbList.module.css";
 
 function HdbList() {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,13 +26,13 @@ function HdbList() {
       setIsLoading(true);
       const response = await govapi.get();
       setHdbList(response.data.result.records);
+      console.log("Full list", hdbList);
       console.log(response);
     } catch (error) {
       console.error("🚨 error: ", error.message);
       alert(error.message);
     } finally {
       console.log("🎉 completed");
-      console.log("Full list", hdbList);
       setIsLoading(false);
     }
   };
@@ -84,12 +83,35 @@ function HdbList() {
       return false;
     }
   };
+  const filterByFlatType = (item) => {
+    if (criterias.flat_type == "") {
+      return true;
+    }
+    if (item.flat_type == criterias.flat_type) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const filterByBudget = (item) => {
+    if (criterias.budget == "") {
+      return true;
+    }
+    if (Number(item.resale_price) <= Number(criterias.budget)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
 
   const filterAll = (item) => {
     if (
       filterByMonth(item) &&
       filterByYear(item) &&
       filterByTown(item) &&
+      filterByFlatType(item) &&
+      filterByBudget(item) &&
       filterByFlatModel(item)
     ) {
       return true;
@@ -104,7 +126,7 @@ function HdbList() {
         <Box
           sx={{
             my: 15,
-            textAlign: "center",
+            textAlign: "left",
             p: 2,
             "& h4": {
               fontWeight: "bold",
@@ -122,7 +144,9 @@ function HdbList() {
             },
           }}
         >
-          <Filter />
+          <h2>List of HDB from January 2017 to February 2017</h2>
+          <p>Your current budget: {criterias.budget} SGD</p>
+          <Filter hdbList={hdbList} />
           <h2>{isLogged ? "True" : "False"}</h2>
           {isLoading ? (
             <div style={{ marginTop: 20, marginBottom: 20 }}>
@@ -131,46 +155,44 @@ function HdbList() {
           ) : (
             ""
           )}
-          {console.log("CRITERIAS", criterias)}
-          <div className={styles.hdbresults}>
-            <table className={styles.hdbresults.table}>
-              <tr>
-                <td>month</td>
-                <td>town</td>
-                <td>flat_type</td>
-                <td>block</td>
-                <td>street_name</td>
-                <td>storey_range</td>
-                <td>floor_area_sqm</td>
-                <td>flat_model</td>
-                <td>lease_commence_date</td>
-                <td>remaining_lease</td>
-                <td>resale_price</td>
-                <td>_id</td>
-              </tr>
-              {hdbList.filter(filterAll).map((item, id) => {
-                // {hdbList.map((item, id) => {
-                return (
-                  <>
-                    <tr key={id}>
-                      <td>{item.month}</td>
-                      <td>{item.town}</td>
-                      <td>{item.flat_type}</td>
-                      <td>{item.block}</td>
-                      <td>{item.street_name}</td>
-                      <td>{item.storey_range}</td>
-                      <td>{item.floor_area_sqm}</td>
-                      <td>{item.flat_model}</td>
-                      <td>{item.lease_commence_date}</td>
-                      <td>{item.remaining_lease}</td>
-                      <td>{item.resale_price}</td>
-                      <td>{item._id}</td>
-                    </tr>
-                  </>
-                );
-              })}
-            </table>
-          </div>
+          {console.log(hdbList)}
+
+          <table style={{ border: "1px solid black" }}>
+            <tr>
+              <td>month</td>
+              <td>town</td>
+              <td>flat_type</td>
+              <td>block</td>
+              <td>street_name</td>
+              <td>storey_range</td>
+              <td>floor_area_sqm</td>
+              <td>flat_model</td>
+              <td>lease_commence_date</td>
+              <td>remaining_lease</td>
+              <td>resale_price</td>
+              <td>_id</td>
+            </tr>
+            {hdbList.filter(filterAll).map((item, id) => {
+              return (
+                <>
+                  <tr key={id}>
+                    <td>{item.month}</td>
+                    <td>{item.town}</td>
+                    <td>{item.flat_type}</td>
+                    <td>{item.block}</td>
+                    <td>{item.street_name}</td>
+                    <td>{item.storey_range}</td>
+                    <td>{item.floor_area_sqm}</td>
+                    <td>{item.flat_model}</td>
+                    <td>{item.lease_commence_date}</td>
+                    <td>{item.remaining_lease}</td>
+                    <td>{item.resale_price}</td>
+                    <td>{item._id}</td>
+                  </tr>
+                </>
+              );
+            })}
+          </table>
         </Box>
       </Layout>
     </>
