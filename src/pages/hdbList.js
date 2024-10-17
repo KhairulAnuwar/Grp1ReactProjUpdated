@@ -170,7 +170,11 @@ function HdbList() {
           }}
         >
           <h2>List of HDB from January 2017 to February 2017</h2>
-          <p>Your current budget: {criterias.budget} SGD</p>
+          {criterias.budget ? (
+            <p>Your current budget: {criterias.budget} SGD</p>
+          ) : (
+            <p>No budget has been calculated</p>
+          )}
           <Filter hdbList={hdbList} />
           {/* <h2>{isLogged ? "True" : "False"}</h2> */}
           {isLoading ? (
