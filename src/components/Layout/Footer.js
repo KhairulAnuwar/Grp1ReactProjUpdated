@@ -40,14 +40,11 @@ const Footer = () => {
           <Link href="/FCalculator" underline="none">
             Calculator
           </Link>
-          <Link href="/Favorite" underline="none">
+           <Link href="/Favorite" underline="none">
             Favorite
           </Link>
-          <Link href="/about" underline="none">
-            About
-          </Link>
-          <Link href="/contact" underline="none">
-            Contact
+          <Link href="/Favorite" underline="none">
+            Favorite
           </Link>
         </Box>
 
@@ -70,18 +67,6 @@ const Footer = () => {
             },
           }}
         >
-          <Link href="https://instagram.com" target="_blank" color="inherit">
-            <InstagramIcon />
-          </Link>
-          <Link href="https://x.com" target="_blank" color="inherit">
-            <TwitterIcon />
-          </Link>
-          <Link href="https://github.com" target="_blank" color="inherit">
-            <GitHubIcon />
-          </Link>
-          <Link href="https://youtube.com" target="_blank" color="inherit">
-            <YouTubeIcon />
-          </Link>
         </Box>
 
         
