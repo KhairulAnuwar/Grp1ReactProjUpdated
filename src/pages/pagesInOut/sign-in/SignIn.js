@@ -21,14 +21,8 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 
 
 // Import Firebase functions
-import { getAuth, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-import {firebaseConfig } from "../../../index";
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const facebookProvider = new FacebookAuthProvider();
+import { auth, facebookProvider } from "../../../api/firebase"
+import { signInWithPopup } from "firebase/auth";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
