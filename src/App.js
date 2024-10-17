@@ -10,6 +10,7 @@ import SignIn from "./pages/pagesInOut/sign-in/SignIn";
 import Login from "./pages/Login.js";
 import { UserContextProvider } from "./store/UserContext.js";
 import Favorites from "./pages/Favorites.js";
+import Salesperson from "./pages/Salesperson.js"
 
 function App() {
   return (
@@ -24,6 +25,8 @@ function App() {
           <Route path="hdblist" element={<HdbList />} />
           <Route path="signin" element={<SignIn />} />
           <Route path="login" element={<Login />} />
+          <Route path="salesperson" element={<Salesperson />} />
+
 
           <Route path="*" element={<Pagenotfound />} />
         </Routes>

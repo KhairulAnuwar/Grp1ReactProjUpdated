@@ -1,8 +1,5 @@
 import React from "react";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import YouTubeIcon from "@mui/icons-material/YouTube";
+
 import { Box, Link } from "@mui/material";
 
 const Footer = () => {
@@ -45,6 +42,9 @@ const Footer = () => {
           </Link>
           <Link href="/Favorite" underline="none">
             Favorite
+          </Link>
+          <Link href="/Salesperson" underline="none">
+            Sales Person
           </Link>
         </Box>
 
