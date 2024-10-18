@@ -49,18 +49,18 @@ const Contact = () => {
                 <TableRow>
                   <TableCell>
                     <SupportAgentIcon sx={{ color: "red", pt: 1 }} />{" "}
-                    1800-00-0000 (tollfree)
+                    1800-11-2323 (tollfree)
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>
                     <MailIcon sx={{ color: "skyblue", pt: 1 }} />{" "}
-                    help@myrest.com
+                    help@ftbsolutions.com
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell>
-                    <CallIcon sx={{ color: "green", pt: 1 }} /> 1234567890
+                    <CallIcon sx={{ color: "green", pt: 1 }} /> 8899 8232
                   </TableCell>
                 </TableRow>
               </TableBody>
