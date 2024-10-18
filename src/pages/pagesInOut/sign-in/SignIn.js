@@ -79,7 +79,7 @@ export default function SignIn() {
 
     // Check if email and password match "admin@admin.com" and "123456"
     if (email === "admin@admin.com" && password === "123456") {
-      navigate("/"); // Redirect to dashboard on successful login
+      navigate("/home"); // Redirect to dashboard on successful login
     } else {
       setGeneralErrorMessage("Invalid email or password");
       setEmailError(true);
@@ -95,7 +95,7 @@ export default function SignIn() {
   const handleSingPassLogin = () => {
     // Simulate SingPass login success
     // Here you can call the SingPass API to verify and then redirect to the dashboard
-    navigate("/"); // Redirect to dashboard on success
+    navigate("/home"); // Redirect to dashboard on success
   };
 
   const handleGoogleSuccess = (response) => {
@@ -104,7 +104,7 @@ export default function SignIn() {
     // e.g., send the token to your server for validation
 
     // Redirect to /home after successful login
-    navigate("/");
+    navigate("/home");
   };
 
   const handleGoogleError = (error) => {
@@ -116,7 +116,7 @@ export default function SignIn() {
       const result = await signInWithPopup(auth, facebookProvider);
       const user = result.user;
       console.log("Facebook login successful:", user);
-      navigate("/"); // Redirect to home/dashboard after successful login
+      navigate("/home"); // Redirect to home/dashboard after successful login
     } catch (error) {
       console.error("Facebook login error:", error);
       alert("Failed to sign in with Facebook.");

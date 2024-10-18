@@ -6,7 +6,7 @@ import Contact from "./pages/Contact";
 import FCalculator from "./pages/FCalculator";
 import Pagenotfound from "./pages/Pagenotfound";
 import HdbList from "./pages/hdbList.js";
-import SignIn from "./pages/pagesInOut/sign-in/SignIn";
+//import SignIn from "./pages/pagesInOut/sign-in/SignIn";
 import Login from "./pages/Login.js";
 import { UserContextProvider } from "./store/UserContext.js";
 import Favorites from "./pages/Favorites.js";
@@ -17,17 +17,14 @@ function App() {
     <UserContextProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login />} />
+          <Route path="home" element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
           <Route path="fcalculator" element={<FCalculator />} />
           <Route path="favorite" element={<Favorites />} />
           <Route path="hdblist" element={<HdbList />} />
-          <Route path="signin" element={<SignIn />} />
-          <Route path="login" element={<Login />} />
           <Route path="salesperson" element={<Salesperson />} />
-
-
           <Route path="*" element={<Pagenotfound />} />
         </Routes>
       </BrowserRouter>
