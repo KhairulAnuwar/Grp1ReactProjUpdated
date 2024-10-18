@@ -4,7 +4,7 @@ import Filter from "../components/Filter";
 import govapi from "../api/govapi";
 import { PropagateLoader } from "react-spinners";
 import Layout from "../components/Layout/Layout";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import styles from "./hdbList.module.css";
 
 function HdbList() {
@@ -97,7 +97,7 @@ function HdbList() {
   };
 
   const filterByBudget = (item) => {
-    if (criterias.budget == "") {
+    if (criterias.budget == "" || criterias.budget == 0) {
       return true;
     }
     if (Number(item.resale_price) <= Number(criterias.budget)) {
@@ -148,86 +148,107 @@ function HdbList() {
   return (
     <>
       <Layout>
+        <Box sx={{ my: 5, ml: 10, "& h4": { fontWeight: "bold", mb: 2 } }}>
+          <Typography variant="h4">Check HDBs that you can afford</Typography>
+          <p>
+            After calculating your budget, check what HDBs suits the best based
+            on 2017 historical data
+          </p>
+        </Box>
         <Box
           sx={{
-            my: 15,
-            textAlign: "left",
-            p: 2,
-            "& h4": {
-              fontWeight: "bold",
-              my: 2,
-              fontSize: "2rem",
-            },
-            "& p": {
-              textAlign: "justify",
-            },
+            m: 3,
+            width: "600px",
+            ml: 10,
             "@media (max-width:600px)": {
-              mt: 0,
-              "& h4 ": {
-                fontSize: "1.5rem",
-              },
+              width: "300px",
             },
           }}
         >
-          <h2>List of HDB from January 2017 to February 2017</h2>
-          {criterias.budget ? (
-            <p>Your current budget: {criterias.budget} SGD</p>
-          ) : (
-            <p>No budget has been calculated</p>
-          )}
-          <Filter hdbList={hdbList} />
-          {/* <h2>{isLogged ? "True" : "False"}</h2> */}
-          {isLoading ? (
-            <div style={{ marginTop: 20, marginBottom: 20 }}>
-              <PropagateLoader color="#36d7b7" loading={isLoading} />
-            </div>
-          ) : (
-            ""
-          )}
-          {console.log("CRITERIAS", criterias)}
           <div className={styles.hdbresults}>
-            <table className={styles.hdbresults.table}>
-              <tr>
-                <td>month</td>
-                <td>town</td>
-                <td>flat_type</td>
-                <td>block</td>
-                <td>street_name</td>
-                <td>storey_range</td>
-                <td>floor_area_sqm</td>
-                <td>flat_model</td>
-                <td>lease_commence_date</td>
-                <td>remaining_lease</td>
-                <td>resale_price</td>
-                <td>_id</td>
-                <td>Favorites</td>
-              </tr>
-              {hdbList.filter(filterAll).map((item) => {
-                // {hdbList.map((item, id) => {
-                return (
-                  <>
-                    <tr key={item._id}>
-                      <td>{item.month}</td>
-                      <td>{item.town}</td>
-                      <td>{item.flat_type}</td>
-                      <td>{item.block}</td>
-                      <td>{item.street_name}</td>
-                      <td>{item.storey_range}</td>
-                      <td>{item.floor_area_sqm}</td>
-                      <td>{item.flat_model}</td>
-                      <td>{item.lease_commence_date}</td>
-                      <td>{item.remaining_lease}</td>
-                      <td>{item.resale_price}</td>
-                      <td>{item._id}</td>
-                      <td>
-                        <button onClick={() => addToFavorites(item)}>
-                          {item.isFavorite ? "★" : "☆"}
-                        </button>
-                      </td>
-                    </tr>
-                  </>
-                );
-              })}
+            <div
+              style={{
+                width: "600px",
+                margin: "auto",
+                marginTop: "50px",
+                marginBottom: "20px",
+              }}
+            >
+              {criterias.budget ? (
+                <h3
+                  style={{
+                    marginTop: "50px",
+                    marginBottom: "50px",
+                  }}
+                >
+                  Your current budget: {criterias.budget} SGD
+                </h3>
+              ) : (
+                <h3
+                  style={{
+                    marginTop: "50px",
+                    marginBottom: "50px",
+                  }}
+                >
+                  No budget has been calculated, please calculate your budget{" "}
+                  <a href="/FCalculator">here</a>
+                </h3>
+              )}
+              <Filter hdbList={hdbList} />
+              {/* <h2>{isLogged ? "True" : "False"}</h2> */}
+              {isLoading ? (
+                <div style={{ marginTop: 20, marginBottom: 20 }}>
+                  <PropagateLoader color="#36d7b7" loading={isLoading} />
+                </div>
+              ) : (
+                ""
+              )}
+              {console.log("CRITERIAS", criterias)}
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Month</th>
+                  <th>Town </th>
+                  <th>Flat Type</th>
+                  <th>Block</th>
+                  <th>Street Name</th>
+                  <th>Storey Range</th>
+                  <th>Floor Area Sqm</th>
+                  <th>Flat Model</th>
+                  <th>Lease Commence Date</th>
+                  <th>Remaining Lease</th>
+                  <th>Resale Price</th>
+                  <th>Favorites</th>
+                </tr>
+              </thead>
+              <tbody>
+                {hdbList.filter(filterAll).map((item) => {
+                  // {hdbList.map((item, id) => {
+                  return (
+                    <>
+                      <tr key={item._id}>
+                        <td>{item.month}</td>
+                        <td>{item.town}</td>
+                        <td>{item.flat_type}</td>
+                        <td>{item.block}</td>
+                        <td>{item.street_name}</td>
+                        <td>{item.storey_range}</td>
+                        <td>{item.floor_area_sqm}</td>
+                        <td>{item.flat_model}</td>
+                        <td>{item.lease_commence_date}</td>
+                        <td>{item.remaining_lease}</td>
+                        <td>{item.resale_price}</td>
+                        <td>
+                          <button onClick={() => addToFavorites(item)}>
+                            {item.isFavorite ? "★" : "☆"}
+                          </button>
+                        </td>
+                      </tr>
+                    </>
+                  );
+                })}
+              </tbody>
             </table>
           </div>
         </Box>

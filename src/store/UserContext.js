@@ -27,6 +27,7 @@ export function UserContextProvider({ children }) {
     remaining_lease: "",
     resale_price: "",
     _id: "",
+    budget: "",
   });
 
   const handleCredentialsChange = (event) => {
@@ -68,11 +69,10 @@ export function UserContextProvider({ children }) {
     criterias,
     setCriterias,
     favorites,
-    setFavorites
+    setFavorites,
   };
 
   return (
     <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
   );
 }
-

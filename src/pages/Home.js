@@ -11,7 +11,7 @@ function Home() {
       <div className="home" style={{ backgroundImage: `url(${Banner})` }}>
         <div className="headerContainer">
           <p>
-            You're <br /> Ideal <br /> home{" "}
+            Your <br /> Ideal <br /> home{" "}
           </p>
           <Link to="/FCalculator">
             <button>Starts Here</button>

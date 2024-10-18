@@ -3,7 +3,8 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { BeatLoader } from "react-spinners";
 import Layout from "../components/Layout/Layout";
-
+import styles from "./hdbList.module.css";
+import { Box, Typography } from "@mui/material";
 
 function App() {
   const [salesPerson, setSalesPerson] = useState([]);
@@ -31,7 +32,9 @@ function App() {
       setError(null); // Reset error before each request
 
       try {
-        const response = await axios.get(`${url}&limit=${limit}&offset=${offset}`);
+        const response = await axios.get(
+          `${url}&limit=${limit}&offset=${offset}`
+        );
         const records = response.data.result.records;
         const total = response.data.result.total;
         setTotalRecords(total); // Get total number of records
@@ -62,62 +65,83 @@ function App() {
   );
 
   return (
-    <Layout >
-    <div>
-      <h1>Salesperson Data</h1>
-      <p>Total records: {totalRecords}</p>
-
-      {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Search Salesperson"
-        value={searchTerm}
-        onChange={(e) => {
-          setSearchTerm(e.target.value);
-          setCurrentPage(1); // Reset to the first page when searching
+    <Layout>
+      <Box sx={{ my: 5, ml: 10, "& h4": { fontWeight: "bold", mb: 2 } }}>
+        <Typography variant="h4">Find the best agent</Typography>
+        <p>Find your best agent with the right experience.</p>
+      </Box>
+      <Box
+        sx={{
+          m: 3,
+          width: "600px",
+          ml: 10,
+          "@media (max-width:600px)": {
+            width: "300px",
+          },
         }}
-        style={{ marginBottom: "20px", padding: "10px", width: "300px" }}
-      />
+      >
+        <div>
+          <p>Total records: {totalRecords}</p>
 
-      {isLoading ? (
-        <BeatLoader color={"#123abc"} loading={isLoading} />
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
-        <>
-          <table border="1" style={{ width: "100%", textAlign: "left" }}>
-            <thead>
-              <tr>
-                <th>SalesPerson Name</th>
-                <th>Years of Service</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredSalesPerson.map((person, index) => (
-                <tr key={index}>
-                  <td>{person.salesperson_name}</td>
-                  <td>{calculateExperience(person.registration_start_date)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          {/* Search Input */}
+          <input
+            type="text"
+            placeholder="Search Salesperson"
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1); // Reset to the first page when searching
+            }}
+            style={{ marginBottom: "20px", padding: "10px", width: "300px" }}
+          />
 
-          {/* Pagination Controls */}
-          <div style={{ marginTop: "20px" }}>
-            <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-              Previous
-            </button>
-            <span style={{ margin: "0 10px" }}>Page {currentPage} of {Math.ceil(totalRecords / limit)}</span>
-            <button
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === Math.ceil(totalRecords / limit)}
-            >
-              Next
-            </button>
-          </div>
-        </>
-      )}
-    </div>
+          {isLoading ? (
+            <BeatLoader color={"#123abc"} loading={isLoading} />
+          ) : error ? (
+            <p>{error}</p>
+          ) : (
+            <>
+              <table border="1" style={{ width: "100%", textAlign: "left" }}>
+                <thead>
+                  <tr>
+                    <th>SalesPerson Name</th>
+                    <th>Years of Service</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredSalesPerson.map((person, index) => (
+                    <tr key={index}>
+                      <td>{person.salesperson_name}</td>
+                      <td>
+                        {calculateExperience(person.registration_start_date)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {/* Pagination Controls */}
+              <div style={{ marginTop: "20px" }}>
+                <button
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                <span style={{ margin: "0 10px" }}>
+                  Page {currentPage} of {Math.ceil(totalRecords / limit)}
+                </span>
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === Math.ceil(totalRecords / limit)}
+                >
+                  Next
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </Box>
     </Layout>
   );
 }

@@ -98,7 +98,9 @@ function Filter({ hdbList }) {
           return <option value={item.flat_model}>{item.flat_model}</option>;
         })}
       </select>
-      <div onClick={resetFilter}>Reset criterias</div>
+      <div style={{ textAlign: "center" }} onClick={resetFilter}>
+        Reset criterias
+      </div>
     </>
   );
 }

@@ -19,10 +19,8 @@ const Contact = () => {
   return (
     <Layout>
       <Box sx={{ my: 5, ml: 10, "& h4": { fontWeight: "bold", mb: 2 } }}>
-        <Typography variant="h4">Contact Details</Typography>
-        <p>
-          For any enquiries, kindly contact the number below.
-        </p>
+        <Typography variant="h4">Get in touch with us</Typography>
+        <p>For any enquiries, kindly contact the number below.</p>
       </Box>
       <Box
         sx={{

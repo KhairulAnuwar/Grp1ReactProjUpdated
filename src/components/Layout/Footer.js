@@ -13,8 +13,6 @@ const Footer = () => {
           p: 3,
         }}
       >
-      
-
         {/* Navigation Links */}
         <Box
           sx={{
@@ -34,22 +32,11 @@ const Footer = () => {
             },
           }}
         >
-          <Link href="/FCalculator" underline="none">
-            Calculator
-          </Link>
-           <Link href="/HdbList" underline="none">
-            HDB List
-          </Link>
-          <Link href="/Favorite" underline="none">
-            Favorite
-          </Link>
-          <Link href="/Salesperson" underline="none">
-            Sales Person
-          </Link>
+          <p>Copyright@2024</p>
         </Box>
 
-  {/* Social Media Icons */}
-  <Box
+        {/* Social Media Icons */}
+        <Box
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -66,10 +53,7 @@ const Footer = () => {
               transition: "all 400ms",
             },
           }}
-        >
-        </Box>
-
-        
+        ></Box>
       </Box>
     </>
   );

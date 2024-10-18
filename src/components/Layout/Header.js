@@ -58,40 +58,58 @@ function Header() {
       <Divider />
       <ul className="mobile-navigation">
         <li>
-          <NavLink to="/home" className={({ isActive }) => (isActive ? "active" : "")}>
+          <NavLink
+            to="/home"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
             Home
           </NavLink>
         </li>
         <li>
-          <NavLink to="/FCalculator" className={({ isActive }) => (isActive ? "active" : "")}>
-            Calculator
+          <NavLink
+            to="/FCalculator"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Calculate your budget
           </NavLink>
         </li>
         <li>
-          <NavLink to="/hdblist" className={({ isActive }) => (isActive ? "active" : "")}>
-            HDB List
+          <NavLink
+            to="/hdblist"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Check HDBs list
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Favorite" className={({ isActive }) => (isActive ? "active" : "")}>
-            Favorite
+          <NavLink
+            to="/Favorite"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Find your favorites
           </NavLink>
         </li>
         <li>
-          <NavLink to="/Salesperson" className={({ isActive }) => (isActive ? "active" : "")}>
-            Salesperson
+          <NavLink
+            to="/Salesperson"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Find the best agent
           </NavLink>
         </li>
         <li>
-          <NavLink to="/contact" className={({ isActive }) => (isActive ? "active" : "")}>
-            Contact
+          <NavLink
+            to="/contact"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Get in touch with us
           </NavLink>
         </li>
-          <li>
-            <NavLink to="/" onClick={handleLogout}>
-              Log Out
-            </NavLink>
-          </li>
+        <li>
+          <NavLink to="/" onClick={handleLogout}>
+            Log Out
+          </NavLink>
+        </li>
       </ul>
     </Box>
   );
@@ -124,40 +142,58 @@ function Header() {
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <ul className="navigation-menu">
                 <li>
-                  <NavLink to="/home" className={({ isActive }) => (isActive ? "active" : "")}>
+                  <NavLink
+                    to="/home"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
                     Home
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/FCalculator" className={({ isActive }) => (isActive ? "active" : "")}>
-                    Calculator
+                  <NavLink
+                    to="/FCalculator"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Calculate your budget
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/hdblist" className={({ isActive }) => (isActive ? "active" : "")}>
-                    HDB List
+                  <NavLink
+                    to="/hdblist"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Check HDBs list
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/favorite" className={({ isActive }) => (isActive ? "active" : "")}>
-                    Favorite
+                  <NavLink
+                    to="/favorite"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Find your favorites
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/salesperson" className={({ isActive }) => (isActive ? "active" : "")}>
-                    Sales Person
+                  <NavLink
+                    to="/salesperson"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Find the best agent
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/contact" className={({ isActive }) => (isActive ? "active" : "")}>
-                    Contact
+                  <NavLink
+                    to="/contact"
+                    className={({ isActive }) => (isActive ? "active" : "")}
+                  >
+                    Get in touch with us
                   </NavLink>
                 </li>
-                  <li>
-                    <NavLink to="/" onClick={handleLogout}>
-                      Log Out
-                    </NavLink>
-                  </li>
+                <li>
+                  <NavLink to="/" onClick={handleLogout}>
+                    Log Out
+                  </NavLink>
+                </li>
               </ul>
             </Box>
           </Toolbar>
