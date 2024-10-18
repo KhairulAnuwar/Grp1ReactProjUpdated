@@ -128,7 +128,7 @@ export default function SignIn() {
       <CssBaseline />
       <Stack direction="column" justifyContent="space-between" minHeight="100%" padding={2}>
         <MuiCard variant="outlined" style={{ display: 'flex', flexDirection: 'column', alignSelf: 'center', width: '100%', padding: '16px', margin: 'auto', boxShadow: 'hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px' }}>
-          <SitemarkIcon />
+        <h1>FTB Solutions<h1/>
           <Typography component="h1" variant="h4" style={{ width: '100%', fontSize: '2rem' }}>
             Sign in
           </Typography>
