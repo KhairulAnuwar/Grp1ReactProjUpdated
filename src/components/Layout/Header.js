@@ -38,7 +38,7 @@ function Header() {
     try {
       await signOut(auth);
       setUser(null); // Clear the user state after sign out
-      navigate("/signin"); // Redirect to SignIn page after logout
+      navigate("/"); // Redirect to SignIn page after logout
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -58,7 +58,7 @@ function Header() {
       <Divider />
       <ul className="mobile-navigation">
         <li>
-          <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
+          <NavLink to="/home" className={({ isActive }) => (isActive ? "active" : "")}>
             Home
           </NavLink>
         </li>
@@ -87,26 +87,11 @@ function Header() {
             Contact
           </NavLink>
         </li>
-        {user ? (
           <li>
             <NavLink to="/" onClick={handleLogout}>
               Log Out
             </NavLink>
           </li>
-        ) : (
-          <>
-            {/* <li>
-              <NavLink to="/signin" className={({ isActive }) => (isActive ? "active" : "")}>
-                SignIn
-              </NavLink>
-            </li> */}
-            <li>
-              <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
-                Login
-              </NavLink>
-            </li>
-          </>
-        )}
       </ul>
     </Box>
   );
@@ -139,7 +124,7 @@ function Header() {
             <Box sx={{ display: { xs: "none", sm: "block" } }}>
               <ul className="navigation-menu">
                 <li>
-                  <NavLink to="/" className={({ isActive }) => (isActive ? "active" : "")}>
+                  <NavLink to="/home" className={({ isActive }) => (isActive ? "active" : "")}>
                     Home
                   </NavLink>
                 </li>
@@ -168,26 +153,11 @@ function Header() {
                     Contact
                   </NavLink>
                 </li>
-                {user ? (
                   <li>
                     <NavLink to="/" onClick={handleLogout}>
                       Log Out
                     </NavLink>
                   </li>
-                ) : (
-                  <>
-                    {/* <li>
-                      <NavLink to="/signin" className={({ isActive }) => (isActive ? "active" : "")}>
-                        SignIn
-                      </NavLink>
-                    </li> */}
-                    <li>
-                      <NavLink to="/login" className={({ isActive }) => (isActive ? "active" : "")}>
-                        Login
-                      </NavLink>
-                    </li>
-                  </>
-                )}
               </ul>
             </Box>
           </Toolbar>
