@@ -21,8 +21,7 @@ const FavoritesTable = ({ favorites }) => {
             },
           }}
         >
-          <div>
-            <h2>Your Favorites</h2>
+          <div style={{ height: "800px" }}>
             {favorites.length === 0 ? (
               <p>No favorite products yet.</p>
             ) : (

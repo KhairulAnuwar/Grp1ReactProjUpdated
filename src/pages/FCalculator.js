@@ -116,7 +116,7 @@ function FCalculator() {
             },
           }}
         >
-          <div>
+          <div style={{ height: "800px" }}>
             <h2>Budget Calculator</h2>
             <br />
             <div style={{ width: "100%" }}>

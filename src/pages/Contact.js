@@ -32,38 +32,41 @@ const Contact = () => {
           },
         }}
       >
-        <TableContainer component={Paper}>
-          <Table aria-label="contact table">
-            <TableHead>
-              <TableRow>
-                <TableCell
-                  sx={{ bgcolor: "black", color: "white" }}
-                  align="center"
-                >
-                  Contact Details
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  <SupportAgentIcon sx={{ color: "red", pt: 1 }} /> 1800-00-0000
-                  (tollfree)
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <MailIcon sx={{ color: "skyblue", pt: 1 }} /> help@myrest.com
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>
-                  <CallIcon sx={{ color: "green", pt: 1 }} /> 1234567890
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <div style={{ height: "800px" }}>
+          <TableContainer component={Paper}>
+            <Table aria-label="contact table">
+              <TableHead>
+                <TableRow>
+                  <TableCell
+                    sx={{ bgcolor: "black", color: "white" }}
+                    align="center"
+                  >
+                    Contact Details
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>
+                    <SupportAgentIcon sx={{ color: "red", pt: 1 }} />{" "}
+                    1800-00-0000 (tollfree)
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <MailIcon sx={{ color: "skyblue", pt: 1 }} />{" "}
+                    help@myrest.com
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell>
+                    <CallIcon sx={{ color: "green", pt: 1 }} /> 1234567890
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
       </Box>
     </Layout>
   );
